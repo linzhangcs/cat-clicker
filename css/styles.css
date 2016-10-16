@@ -1,0 +1,12 @@
+img{
+  width: 50%;
+  height: 30%;
+}
+ul#catNames{
+  width: 30%;
+  float: left;
+}
+
+#catNames li{
+  list-style: none;
+}
