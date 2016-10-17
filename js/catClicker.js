@@ -1,14 +1,34 @@
 $(document).ready(function(){
-  /*var counter = 0;
-  $('#container').append("<div id=\"cat-name\"></div>");
-  $('#container').append("<div id=\"cat\"><img src='images/Jeff-the-Cat.jpg'/></div>");
-  $('#container').append("<div id=\"cat-click-counter\"></div>");
 
-  $('#cat').click(function(){
-    counter++;
-    $('#cat-click-counter').text(counter);
-  });*/
+  // clear the screen for testing
+// document.body.innerHTML = '';
+document.body.style.background="white";
 
+var nums = [1,2,3];
+
+// Let's loop over the numbers in our array
+for (var i = 0; i < nums.length; i++) {
+
+    // This is the number we're on...
+    var num = nums[i];
+
+    // We're creating a DOM element for the number
+    var elem = document.createElement('div');
+    elem.textContent = num;
+
+    /* This method of wrapping an anonymous function in parentheses
+    and calling it right away is called an IIFE
+    (Immediately-Invoked Function Expression, pronounced like "iffy").
+    */
+    // ... and when we click, alert the value of `num`
+    elem.addEventListener('click', (function(i){
+      return function(){console.log(i);};
+    })(num));
+
+
+    // finally, let's add this element to the document
+    document.body.appendChild(elem);
+};
 
   var cats = [];
   var catOne = new catClicker("Kitty","images/Jeff-the-Cat.jpg", "catOne");
@@ -26,16 +46,6 @@ $(document).ready(function(){
         $('#'+ id).text(c);
 
       });
-    // var catItem = document.createElement('li');
-    // catItem.textContent = cats[i].catName;
-    // $("#catNames").append("<li>"+cats[i].catName+"</li>");
-    // catItem.addEventListener('click',(function(catId){
-    //   var thisCat = cats[i];
-    //   if(!thisCat.isShow){
-    //     thisCat.display();
-    //   }
-    // })(cats[i]));
-    // $('#catNames').append(catItem);
   }
 
   // var catTwo = new catClicker("Kat","images/Jeff-the-Cat.jpg", "catTwo");
