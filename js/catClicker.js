@@ -111,9 +111,9 @@ catClicker.prototype.init = function (){
   this.addCatClicker();
 }
 catClicker.prototype.display = function(){
-  $('#container').append("<div class=\"cat-name\">"+this.catName+"</div>");
-  $('#container').append("<div class=\"cat-pic\" id=\""+this.catId+"pic"+"\"><img src='"+this.picture+"'/></div>");
-  $('#container').append("<div class=\"cat-click-counter\" id=\""+this.catId+"\">"+this.counter+"</div>");
+  $('#cat-info').append("<div class=\"cat-name\">"+this.catName+"</div>");
+  $('#cat-info').append("<div class=\"cat-pic\" id=\""+this.catId+"pic"+"\"><img src='"+this.picture+"'/></div>");
+  $('#cat-info').append("<div class=\"cat-click-counter\" id=\""+this.catId+"\">"+this.counter+"</div>");
   this.show = true;
 };
 catClicker.prototype.addCatClicker = function(){

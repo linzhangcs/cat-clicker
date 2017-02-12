@@ -8,7 +8,9 @@ img{
   float: right;
   width: 60%;
 }
-
+#admin-view{
+  display: none;
+}
 ul#cat-ames{
   width: 30%;
   float: left;
