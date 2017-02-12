@@ -126,7 +126,7 @@ $(document).ready(function(){
       $('#cat-info').append("<input type=\"button\" id=\"adminBtn\">Admin</input>");
       controller.addCounterClickListener($('#'+id+'pic'), id);
       controller.addAdminClickListener($('#adminBtn'), id);
-      controller.addAdminUpdateListener($('#admin-update'), id);
+      controller.addAdminUpdateListener($('#admin-update-btn'), id);
     },
     updateCounterView: function(id){
       console.log(id);
