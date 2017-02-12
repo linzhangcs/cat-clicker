@@ -25,6 +25,11 @@ $(document).ready(function(){
       totalCatCounter++;
       localStorage.cats = JSON.stringify(c);
     },
+    updateCatCounter: function(id){
+      var cats = JSON.parse(localStorage.cats);
+      cats[id].counter++;
+      localStorage.cats = JSON.stringify(cats);
+    },
     getAllCats: function(){
       return JSON.parse(localStorage.cats);
     }
@@ -58,10 +63,7 @@ $(document).ready(function(){
       return clickedCat;
     },
     updateCatCounter: function(id){
-      var cats = this.getCats();
-      var clickedCat = cats[id];
-      console.log(clickedCat);
-      clickedCat.counter++
+      cat.updateCatCounter(id);
       view.updateCounterView(id);
     },
     addCounterClickListener: function(elem, id){
@@ -103,6 +105,8 @@ $(document).ready(function(){
     },
     updateCounterView: function(id){
       console.log(id);
+      var info = contorller.getCatInfo(id).counter;
+      $('#'+id).text(info);
     }
   };
 
