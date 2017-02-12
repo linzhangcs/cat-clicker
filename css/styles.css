@@ -1,12 +1,20 @@
 img{
   width: 50%;
   height: 30%;
+  cursor: pointer;
 }
-ul#catNames{
+
+#container{
+  float: right;
+  width: 60%;
+}
+
+ul#cat-ames{
   width: 30%;
   float: left;
 }
-
-#catNames li{
+#cat-names li{
   list-style: none;
+  cursor: pointer;
+  padding: 15px;
 }

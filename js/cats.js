@@ -1,7 +1,9 @@
 $(document).ready(function(){
 
+  /***************************** MODEL ****************************/
   var cat = {
     init: function(){
+      // localStorage.clear();
       if(!localStorage.cats){
         localStorage.cats = JSON.stringify([]);
         totalCatCounter = 0;
@@ -28,6 +30,7 @@ $(document).ready(function(){
     }
   };
 
+  /***************************** CONTORLLER ****************************/
   var contorller = {
     init: function(){
       cat.init();
@@ -46,50 +49,60 @@ $(document).ready(function(){
       return cat.getAllCats();
     },
     getAllCatsInfo: function(){
-      var cats = getCats();
+      var cats = this.getCats();
       return
     },
-    getACatInfo: function(id){
-      var cats = getCats();
+    getCatInfo: function(id){
+      var cats = this.getCats();
       var clickedCat = cats[id];
       return clickedCat;
+    },
+    updateCatCounter: function(id){
+      var cats = this.getCats();
+      var clickedCat = cats[id];
+      console.log(clickedCat);
+      clickedCat.counter++
+      view.updateCounterView(id);
     },
     addCounterClickListener: function(elem, id){
       if(elem){
         $(elem).click(function(){
-          updateCatCounter(id);
-        });
-      }
-    },
-    updateCatCounter: function(id){
-      var cats = getCats();
-      var clickedCat = cats[id];
-      console.log(clickedCat);
-      clickedCat.counter++
-      view.updateCounterView();
-    },
-    addNameClickListener: function(elem, id){
-      if(elem){
-        $(elem).click(function(){
-          showCatInfo(id);
+          contorller.updateCatCounter(id);
         });
       }
     },
     showCatInfo: function(id){
-      var info = getCatInfo(id);
-      view.displayCatInfo(info);
+      var info = this.getCatInfo(id);
+      view.displayCatInfo(info, id);
+    },
+    addNameClickListener: function(elem, id){
+      if(elem){
+        $(elem).click(function(){
+          contorller.showCatInfo(id);
+        });
+      }
     }
   };
 
+  /***************************** VIEW ****************************/
   var view = {
     init: function(){
-       var cats = contorller.getCatInfo();
+       var cats = contorller.getCatNames();
        for(var i = 0; i < cats.length; i++){
-         $('#cat-names').append("<li id='"+cat+"'>"+cats[i]+"</li>");
+         $('#cat-names').append("<li id='cat"+ i +"'>"+cats[i]+"</li>");
+         contorller.addNameClickListener($('#cat'+i), i);
        }
     },
-    displayCatInfo: function(info){
+    displayCatInfo: function(info, id){
       console.log(info);
+      $('#container').empty();
+      $('#container').append("<div class=\"cat-name\">"+info.catName+"</div>");
+      $('#container').append("<div class=\"cat-pic\" id=\""+id+"pic"+"\"><img src='"+info.catPic+"'/></div>");
+      $('#container').append("<div class=\"cat-click-counter\" id=\""+id+"\">"+info.counter+"</div>");
+      contorller.addCounterClickListener($('#'+id+'pic'), id);
+    },
+    updateCounterView: function(id){
+      console.log(id);
     }
   };
 
