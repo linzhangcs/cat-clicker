@@ -3,17 +3,17 @@ $(document).ready(function(){
   /***************************** MODEL ****************************/
   var cat = {
     init: function(){
-      // localStorage.clear();
+      //localStorage.clear();
       if(!localStorage.cats){
         localStorage.cats = JSON.stringify([]);
-        totalCatCounter = 0;
+        //totalCatCounter = 0;
         var catOne = cat.addCat("Kitty","images/Jeff-the-Cat.jpg");
         var catTwo = cat.addCat("Kat","images/Jeff-the-Cat.jpg");
         var catThree = cat.addCat("Ken","images/Jeff-the-Cat.jpg");
       }
     },
     addCat: function(name, pic){
-      var totalCatCounter;
+      var totalCatCounter = 0;
       var obj = {
         catId: totalCatCounter,
         catName: name,
@@ -32,6 +32,7 @@ $(document).ready(function(){
     },
     updateCatInfo: function(id, name, pic, counter){
       var cats = JSON.parse(localStorage.cats);
+      cats[id].catId = id;
       cats[id].catName = name;
       cats[id].catPic = pic;
       cats[id].counter = counter;
@@ -92,8 +93,9 @@ $(document).ready(function(){
         });
       }
     },
-    addAdminUpdateListener: function(elem, id){
+    addAdminUpdateListener: function(elem){
       if(elem){
+        var id = $('.cat-click-counter').attr('id');
         $(elem).click(function(){
           adminView.updateCatInfo(id);
         });
@@ -120,13 +122,15 @@ $(document).ready(function(){
     displayCatInfo: function(info, id){
       console.log(info);
       $('#cat-info').empty();
+
       $('#cat-info').append("<div class=\"cat-name\">"+info.catName+"</div>");
       $('#cat-info').append("<div class=\"cat-pic\" id=\""+id+"pic"+"\"><img src='"+info.catPic+"'/></div>");
       $('#cat-info').append("<div class=\"cat-click-counter\" id=\""+id+"\">"+info.counter+"</div>");
       $('#cat-info').append("<input type=\"button\" id=\"adminBtn\">Admin</input>");
       controller.addCounterClickListener($('#'+id+'pic'), id);
       controller.addAdminClickListener($('#adminBtn'), id);
-      controller.addAdminUpdateListener($('#admin-update-btn'), id);
+      controller.addAdminUpdateListener($('#admin-update-btn'));
+
     },
     updateCounterView: function(id){
       console.log(id);
@@ -150,7 +154,8 @@ $(document).ready(function(){
       var counter = $('#admin-counter').val();
 
       cat.updateCatInfo(id, name, pic, counter);
-      view.displayCatInfo(id);
+      var info = controller.getCatInfo(id);
+      view.displayCatInfo(info, id);
     }
   };
   controller.init();
